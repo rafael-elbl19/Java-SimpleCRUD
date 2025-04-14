@@ -1,7 +1,12 @@
 package services;
 
+
 public interface TaxService {
 
-    public Double afterTaxes();
+    double getTaxes();
+
+    default Double afterTaxes(Double days, Double valuePerDay, double taxes) {
+        return days * valuePerDay * getTaxes();
+    }
 
 }
