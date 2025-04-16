@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
-
         mainMenu();
     }
     public static void mainMenu() {
@@ -78,6 +77,7 @@ public class Program {
             Person p = new Person(name, email, age, sex, room, taxService);
             double days = p.calculateDays(firstDay, lastDay);
             double finalBill = taxService.afterTaxes(days, dailyValue, taxService.getTaxes());
+            totalAccount(finalBill, p, firstDay, lastDay);
         }
         sc.close();
     }
@@ -94,12 +94,10 @@ public class Program {
         System.out.println("In development function...");
     }
 
-    public static Double totalAccount() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-
-
-        return null;
+    public static Double totalAccount(Double finalBill) {
+        System.out.println("=========FINAL BILL=========");
+        System.out.println("TOTAL: R$" + finalBill);
+        System.out.println("============================");
     }
 
     public static void quitOption() {
