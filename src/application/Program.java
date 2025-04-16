@@ -51,7 +51,7 @@ public class Program {
         }
 
         if (taxService != null) {
-            Person p = new Person(name, email, age, sex, room, ts);
+            Person p = new Person(name, email, age, sex, room, taxService);
             double days = p.calculateDays(firstDay, lastDay);
             p.finalBill(days, dailyValue);
             finalBill = p.total;
@@ -59,7 +59,7 @@ public class Program {
         } else {
             System.out.println("Invalid country option.");
         }
-        
+
         backMenu();
     }
 

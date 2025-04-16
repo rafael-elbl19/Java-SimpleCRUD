@@ -73,8 +73,14 @@ public class Person {
 
         Duration duration = Duration.between(firstLDT, lastLDT);
 
-        //MATH.CEIL ARREDONDA O DECIMAL PARA O INTEIRO MAIS PRÓXIMO
-        return (int) Math.ceil(duration.toHours()) / (24.0);
+        long hours = duration.toHours();
+        if (hours < 24 && hours > 0) {
+            return 1.0;
+        } else if (hours >= 24) {
+            return Math.ceil((double) hours / 24);
+        } else {
+            return 0.0;
+        }
     }
 
     public Double finalBill(Double days, Double valuePerDays) {
