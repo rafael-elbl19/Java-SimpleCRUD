@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Program {
     public static Double finalBill;
     public static Scanner sc = new Scanner(System.in);
+    public static List<Person> persons = new ArrayList<>();
 
     public static void main(String[] args) {
         mainMenu();
@@ -42,20 +43,23 @@ public class Program {
         Double dailyValue = sc.nextDouble();
         System.out.println("============================");
 
+        TaxService taxService = null;
         if (country == 'y') {
-            TaxService ts = new BrazilianTaxes();
-            Person p = new Person(name, email, age, sex, room, ts);
-            double days = p.calculateDays(firstDay, lastDay);
-            p.finalBill(days, dailyValue);
-            finalBill = p.total;
+            taxService = new BrazilianTaxes();
         } else if (country == 'n') {
-            TaxService ts = new OtherCountriesTaxes();
-            Person p = new Person(name, email, age, sex, room, ts);
-            double days = p.calculateDays(firstDay, lastDay);
-            p.finalBill(days, dailyValue);
-            finalBill = p.total;
+            taxService = new OtherCountriesTaxes();
         }
 
+        if (taxService != null) {
+            Person p = new Person(name, email, age, sex, room, ts);
+            double days = p.calculateDays(firstDay, lastDay);
+            p.finalBill(days, dailyValue);
+            finalBill = p.total;
+            persons.add(p);
+        } else {
+            System.out.println("Invalid country option.");
+        }
+        
         backMenu();
     }
 
@@ -71,8 +75,22 @@ public class Program {
         System.out.println("In development function...");
     }
 
-    public static String totalAccount() {
-        return "Final Bill: $" + finalBill;
+    public static void totalAccount() {
+        System.out.print("Enter the room number: ");
+        int roomnumber = sc.nextInt();
+
+        boolean found = false;
+        for (Person p : persons) {
+            if(p.getRoom() == roomnumber) {
+                System.out.printf("Final bill for room %d is $%.2f%n", roomnumber, p.total);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Can't find the room");
+        }
+
+        backMenu();
     }
 
     public static void mainMenu() {

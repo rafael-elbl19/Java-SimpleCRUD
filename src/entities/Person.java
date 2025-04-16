@@ -15,17 +15,7 @@ public class Person {
     private Integer room;
     public Double total;
 
-    
-
     public TaxService taxService;
-
-    public Person(String name, String email, Integer age, String sex, Integer room) {
-        this.name = name;
-        this.email = email;
-        this.age = age;
-        this.sex = sex;
-        this.room = room;
-    }
 
     public Person(String name, String email, Integer age, String sex, Integer room, TaxService taxService) {
         this.name = name;
@@ -84,11 +74,12 @@ public class Person {
         Duration duration = Duration.between(firstLDT, lastLDT);
 
         //MATH.CEIL ARREDONDA O DECIMAL PARA O INTEIRO MAIS PRÓXIMO
-        return (int) Math.ceil(duration.getSeconds()) / (60.0*60.0*24.0);
+        return (int) Math.ceil(duration.toHours()) / (24.0);
     }
 
-    public void finalBill(Double days, Double valuePerDays) {
+    public Double finalBill(Double days, Double valuePerDays) {
         this.total = taxService.afterTaxes(days, valuePerDays);
+        return this.total;
     }
 
 }
