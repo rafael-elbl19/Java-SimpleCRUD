@@ -73,11 +73,15 @@ public class Person {
 
         Duration duration = Duration.between(firstLDT, lastLDT);
 
+        //TRANSFORMA A DURATION EM HORAS
         long hours = duration.toHours();
+        //SE AS HORAS FOREM MENORES QUE 24 E MAIORES QUE 0, RETORNA 1 DIÁRIA
         if (hours < 24 && hours > 0) {
             return 1.0;
+        //SE AS HORAS FOREM MAIORES OU IGUAIS A 24, RETORNA O ARREDONDAMENTO PRA CIMA DE HOURS/24
         } else if (hours >= 24) {
             return Math.ceil((double) hours / 24);
+        //CASO O TEMPO DE SAÍDA ANTES DO DE ENTRADA OU O HOSPEDE FIQUE 0 MINUTOS, RETORNA 0
         } else {
             return 0.0;
         }
@@ -87,5 +91,6 @@ public class Person {
         this.total = taxService.afterTaxes(days, valuePerDays);
         return this.total;
     }
+
 
 }

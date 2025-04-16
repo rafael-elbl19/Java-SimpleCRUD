@@ -5,9 +5,7 @@ import services.TaxService;
 import util.BrazilianTaxes;
 import util.OtherCountriesTaxes;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,7 +66,14 @@ public class Program {
     }
 
     public static void listMenu() {
-        System.out.println("In development function...");
+        for (Person p : persons) {
+            System.out.println("Name: " + p.getName() +
+                    ", email: " + p.getEmail() +
+                    ", room: " + p.getRoom() +
+                    ", sex: " + p.getSex() +
+                    ", age: " + p.getAge() + ".");
+        }
+        backMenu();
     }
 
     public static void updateMenu() {
