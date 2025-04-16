@@ -5,13 +5,64 @@ import services.TaxService;
 import util.BrazilianTaxes;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
         mainMenu();
     }
+    public static void addMenu() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("==========ADD MENU==========");
+        System.out.print("Enter the guest name: ");
+        String name = sc.next();
+        System.out.print("Enter the guest email: ");
+        String email = sc.next();
+        System.out.print("Enter the guest age: ");
+        int age = sc.nextInt();
+        System.out.print("Enter the guest sex: ");
+        String sex = sc.next();
+        System.out.print("Which room: ");
+        int room = sc.nextInt();
+        System.out.print("Enter the first day (dd/MM/yyyy HH:mm): ");
+        sc.nextLine();
+        String firstDay = sc.nextLine();
+        System.out.print("Enter the last day (dd/MM/yyyy HH:mm): ");
+        String lastDay = sc.nextLine();
+        System.out.print("Is the guest brazilian (y/n)? ");
+        char country = sc.next().charAt(0);
+        System.out.print("Enter the value per day: ");
+        Double dailyValue = sc.nextDouble();
+        System.out.println("============================");
+        sc.close();
+
+        if (country == 'y') {
+            Person p = new Person(name, email, age, sex, room);
+            double days = p.calculateDays(firstDay, lastDay);
+            p.finalBill(days, dailyValue);
+        }
+
+    }
+
+    public static void deleteMenu() {
+        System.out.println("In development function...");
+    }
+
+    public static void listMenu() {
+        System.out.println("In development function...");
+    }
+
+    public static void updateMenu() {
+        System.out.println("In development function...");
+    }
+
+    public static void totalAccount() {
+
+    }
+
     public static void mainMenu() {
         Scanner sc = new Scanner(System.in);
         System.out.println("==========BEM-VINDO AO HOTEL==========");
@@ -45,59 +96,6 @@ public class Program {
                 quitOption();
         }
         sc.close();
-    }
-
-    public static void addMenu() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        Scanner sc = new Scanner(System.in);
-        System.out.println("==========ADD MENU==========");
-        System.out.print("Enter the guest name: ");
-        String name = sc.next();
-        System.out.print("Enter the guest email: ");
-        String email = sc.next();
-        System.out.print("Enter the guest age: ");
-        int age = sc.nextInt();
-        System.out.print("Enter the guest sex: ");
-        String sex = sc.next();
-        System.out.print("Which room: ");
-        int room = sc.nextInt();
-        System.out.print("Enter the first day (dd/MM/yyyy HH:mm): ");
-        sc.nextLine();
-        String firstDay = sc.nextLine();
-        System.out.print("Enter the last day (dd/MM/yyyy HH:mm): ");
-        String lastDay = sc.nextLine();
-        System.out.print("Is the guest brazilian (y/n)? ");
-        char country = sc.next().charAt(0);
-        System.out.print("Enter the value per day: ");
-        Double dailyValue = sc.nextDouble();
-        System.out.println("============================");
-
-        if (country == 'y') {
-            TaxService taxService = new BrazilianTaxes();
-            Person p = new Person(name, email, age, sex, room, taxService);
-            double days = p.calculateDays(firstDay, lastDay);
-            double finalBill = taxService.afterTaxes(days, dailyValue, taxService.getTaxes());
-            totalAccount(finalBill, p, firstDay, lastDay);
-        }
-        sc.close();
-    }
-
-    public static void deleteMenu() {
-        System.out.println("In development function...");
-    }
-
-    public static void listMenu() {
-        System.out.println("In development function...");
-    }
-
-    public static void updateMenu() {
-        System.out.println("In development function...");
-    }
-
-    public static Double totalAccount(Double finalBill) {
-        System.out.println("=========FINAL BILL=========");
-        System.out.println("TOTAL: R$" + finalBill);
-        System.out.println("============================");
     }
 
     public static void quitOption() {

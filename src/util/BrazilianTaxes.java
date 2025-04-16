@@ -9,7 +9,4 @@ public class BrazilianTaxes implements TaxService {
     public double getTaxes() {
         return BTAX;
     }
-    public double afterTaxes(double days, double valuePerDay, double taxes) {
-        return days * valuePerDay * taxes;
-    }
 }

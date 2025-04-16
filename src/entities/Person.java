@@ -13,6 +13,7 @@ public class Person {
     private String sex;
     private Integer age;
     private Integer room;
+    private Double finalBill;
 
     public TaxService taxService;
 
@@ -73,21 +74,19 @@ public class Person {
         this.room = room;
     }
 
-    public double calculateDays(String start, String end) {
+    public double calculateDays(String firstDay, String lastDay) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime startDate = LocalDateTime.parse(start, dtf);
-        LocalDateTime finalDate = LocalDateTime.parse(end, dtf);
+        LocalDateTime firstLDT = LocalDateTime.from(dtf.parse(firstDay));
+        LocalDateTime lastLDT = LocalDateTime.from(dtf.parse(lastDay));
 
-        Duration duration = Duration.between(startDate, finalDate);
-        double seconds = duration.getSeconds();
-        double days = seconds / (60*60*24);
+        Duration duration = Duration.between(firstLDT, lastLDT);
 
-        //SE O VALOR DE DIAS QUEBRADO FOR MAIOR QUE O CASTING DE DIAS PRA INTEIRO (ARREDONDA PRA BAIXO)
-        if (days > (int) days) {
-            //DIAS RECEBE O ARREDONDAMENTO E MAIS UMA DIÁRIA
-            days = (int) days + 1;
-        }
-        return days;
+        //MATH.CEIL ARREDONDA O DECIMAL PARA O INTEIRO MAIS PRÓXIMO
+        return (int) Math.ceil(duration.getSeconds()) / (60.0*60.0*24.0);
+    }
+
+    public void finalBill(Double days, Double valuePerDays) {
+        this.finalBill = taxService.afterTaxes(days, valuePerDays);
     }
 
 }

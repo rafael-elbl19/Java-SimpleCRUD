@@ -9,7 +9,4 @@ public class OtherCountriesTaxes implements TaxService {
     public double getTaxes() {
         return OTAX;
     }
-    public double afterTaxes(double days, double valuePerDay, double taxes) {
-        return days * valuePerDay * taxes;
-    }
 }
