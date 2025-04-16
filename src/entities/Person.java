@@ -13,7 +13,9 @@ public class Person {
     private String sex;
     private Integer age;
     private Integer room;
-    private Double finalBill;
+    public Double total;
+
+    
 
     public TaxService taxService;
 
@@ -86,7 +88,7 @@ public class Person {
     }
 
     public void finalBill(Double days, Double valuePerDays) {
-        this.finalBill = taxService.afterTaxes(days, valuePerDays);
+        this.total = taxService.afterTaxes(days, valuePerDays);
     }
 
 }
