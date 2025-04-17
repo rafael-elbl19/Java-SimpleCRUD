@@ -31,7 +31,34 @@ public class Program {
     }
 
     public static void updateMenu() {
-        System.out.println("In development function...");
+        sc.nextLine();
+        System.out.print("Enter the guest name for update: ");
+        String name = sc.nextLine();
+
+        Person newPerson = null;
+        for (Person p : persons) {
+            if (p.getName().equalsIgnoreCase(name)) {
+                newPerson = p;
+                break;
+            }
+        }
+        if (newPerson == null) {
+            System.out.println("Guest does not exist.");
+            backMenu();
+            return; //PARA IMPEDIR CONTINUAÇÃO
+        }
+
+        System.out.print("New check-in date (dd/MM/yyyy HH:mm): ");
+        String newCheckIn = sc.nextLine();
+        System.out.print("New check-out date (dd/MM/yyyy HH:mm): ");
+        String newCheckOut = sc.nextLine();
+        System.out.print("New value per day: ");
+        Double newDailyValue = sc.nextDouble();
+
+        double days = newPerson.calculateDays(newCheckIn, newCheckOut);
+        newPerson.finalBill(days, newDailyValue);
+
+        backMenu();
     }
 
     public static void totalAccount() {
@@ -53,6 +80,7 @@ public class Program {
     }
 
     public static void backMenu() {
+        sc.nextLine();
         System.out.println("Back to principal menu or quit (b/q)?");
         char backOrQuit = sc.next().charAt(0);
         switch (backOrQuit) {
@@ -76,7 +104,7 @@ public class Program {
         if (removed) {
             System.out.println("Guest " + name + " removed.");
         }
-        
+
         if (persons.isEmpty()) {
             System.out.println("No more guests.");
         } else if (persons.isEmpty() != true) {
