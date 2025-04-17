@@ -1,2 +1,2 @@
 # Java-SimpleCRUD
-Simple CRUD using only Java
+Simple CRUD using only JAVA to test my learnings.
