@@ -7,6 +7,7 @@ import util.OtherCountriesTaxes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Program {
@@ -17,6 +18,80 @@ public class Program {
     public static void main(String[] args) {
         mainMenu();
     }
+
+    public static void listMenu() {
+        for (Person p : persons) {
+            System.out.println("Name: " + p.getName() +
+                    ", email: " + p.getEmail() +
+                    ", room: " + p.getRoom() +
+                    ", sex: " + p.getSex() +
+                    ", age: " + p.getAge() + ".");
+        }
+        backMenu();
+    }
+
+    public static void updateMenu() {
+        System.out.println("In development function...");
+    }
+
+    public static void totalAccount() {
+        System.out.print("Enter the room number: ");
+        int roomNumber = sc.nextInt();
+
+        boolean found = false;
+        for (Person p : persons) {
+            if(p.getRoom() == roomNumber) {
+                System.out.printf("Final bill for room %d is $%.2f%n", roomNumber, p.total);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Can't find the room");
+        }
+
+        backMenu();
+    }
+
+    public static void backMenu() {
+        System.out.println("Back to principal menu or quit (b/q)?");
+        char backOrQuit = sc.next().charAt(0);
+        switch (backOrQuit) {
+            case 'b':
+                mainMenu();
+                break;
+            case 'q':
+                quitOption();
+                break;
+            default:
+                System.out.println("Select a valid option.");
+                backMenu();
+        }
+    }
+
+    public static void deleteMenu() {
+        System.out.print("Write the guest name to delete: ");
+        String name = sc.next();
+
+        boolean removed = persons.removeIf(p -> Objects.equals(p.getName(), name));
+        if (removed) {
+            System.out.println("Guest " + name + " removed.");
+        }
+        
+        if (persons.isEmpty()) {
+            System.out.println("No more guests.");
+        } else if (persons.isEmpty() != true) {
+            System.out.println("Remaining guests: ");
+            listMenu();
+        }
+
+        backMenu();
+    }
+
+    public static void quitOption() {
+        System.out.print("Shutting down the system....");
+        System.exit(0);
+    }
+
     public static void addMenu() {
         Scanner sc = new Scanner(System.in);
         System.out.println("==========ADD MENU==========");
@@ -61,43 +136,6 @@ public class Program {
         backMenu();
     }
 
-    public static void deleteMenu() {
-        System.out.println("In development function...");
-    }
-
-    public static void listMenu() {
-        for (Person p : persons) {
-            System.out.println("Name: " + p.getName() +
-                    ", email: " + p.getEmail() +
-                    ", room: " + p.getRoom() +
-                    ", sex: " + p.getSex() +
-                    ", age: " + p.getAge() + ".");
-        }
-        backMenu();
-    }
-
-    public static void updateMenu() {
-        System.out.println("In development function...");
-    }
-
-    public static void totalAccount() {
-        System.out.print("Enter the room number: ");
-        int roomnumber = sc.nextInt();
-
-        boolean found = false;
-        for (Person p : persons) {
-            if(p.getRoom() == roomnumber) {
-                System.out.printf("Final bill for room %d is $%.2f%n", roomnumber, p.total);
-                found = true;
-            }
-        }
-        if (!found) {
-            System.out.println("Can't find the room");
-        }
-
-        backMenu();
-    }
-
     public static void mainMenu() {
         System.out.println("==========BEM-VINDO AO HOTEL==========");
         System.out.println("1. Add new guest.");
@@ -129,26 +167,5 @@ public class Program {
             case 9:
                 quitOption();
         }
-    }
-
-    public static void backMenu() {
-        System.out.println("Back to principal menu or quit (b/q)?");
-        char backOrQuit = sc.next().charAt(0);
-        switch (backOrQuit) {
-            case 'b':
-                mainMenu();
-                break;
-            case 'q':
-                quitOption();
-                break;
-            default:
-                System.out.println("Select a valid option.");
-                backMenu();
-        }
-    }
-
-    public static void quitOption() {
-        System.out.print("Shutting down the system....");
-        System.exit(0);
     }
 }
