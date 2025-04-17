@@ -36,6 +36,7 @@ public class Program {
         String name = sc.nextLine();
 
         Person newPerson = null;
+
         for (Person p : persons) {
             if (p.getName().equalsIgnoreCase(name)) {
                 newPerson = p;
